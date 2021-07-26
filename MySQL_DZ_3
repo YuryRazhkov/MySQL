@@ -28,6 +28,10 @@ ALTER TABLE vk.posts ADD CONSTRAINT posts_FK FOREIGN KEY (id) REFERENCES vk.phot
 ALTER TABLE vk.posts ADD CONSTRAINT posts_FK_1 FOREIGN KEY (id) REFERENCES vk.users(id);
 ALTER TABLE vk.posts ADD CONSTRAINT posts_FK_2 FOREIGN KEY (id) REFERENCES vk.likes(id);
 
+UPD!!! После урока от 21.07.2021 понял, что отдельную таблицу posts делать было не надо. Посты у нас есть в media. 
+Но раз уж написал, то пусть лежит тут.
+
+
 */3. Используя сервис http://filldb.info или другой по вашему желанию, сгенерировать тестовые данные для всех таблиц, учитывая логику связей. Для всех таблиц, где это имеет смысл, создать не менее 100 строк. Создать локально БД vk и загрузить в неё тестовые данные.
 В процессе. Заполнил несколько таблиц. ДБивер почему-то криво импортирует – часто в ячейках появляется значение NULL. У многих в группе такая проблема.
 */

@@ -72,3 +72,11 @@ select avg(datediff(CURRENT_DATE(), birthday)/365.25) from profiles -- где-т
 select DAYNAME(makedate (2021, dayofyear(birthday))), count(*)
 from profiles group by (DAYNAME (makedate (2021, dayofyear(birthday))))
 order by 1;
+/* вывод:
+Friday	62
+Monday	54
+Saturday	52
+Sunday	47
+Thursday	37
+Tuesday	52
+Wednesday	51

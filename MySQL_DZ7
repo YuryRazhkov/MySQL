@@ -12,5 +12,3 @@ where orders.user_id=users.id
 select products.name, catalogs.name
 from products, catalogs
 where catalog_id = catalogs.id
-
--- 

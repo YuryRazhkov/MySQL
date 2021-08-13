@@ -7,5 +7,10 @@ select orders.user_id, users.id, users.name
 from orders, users
 where orders.user_id=users.id
 
+-- 2 Выведите список товаров products и разделов catalogs, который соответствует товару.
 
--- 2
+select products.name, catalogs.name
+from products, catalogs
+where catalog_id = catalogs.id
+
+-- 

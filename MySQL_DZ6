@@ -1,0 +1,56 @@
+/*Задание по теме №6
+/* 2. Пусть задан некоторый пользователь.
+Из всех друзей этого пользователя найдите человека, который больше всех
+общался с нашим пользователем.*/
+
+select from_user_id, count(*)
+from messages, friend_requests
+where to_user_id = 1071 and target_user_id = 1071
+group by from_user_id order by 1 limit 1;
+
+select count (msg_list) from
+(select * from messages where from_user_id=1071 or to_user_id= 1071) as msg_list;
+
+-- 3. Подсчитать общее количество лайков, которые получили 10 самых
+-- молодых пользователей.
+
+Select SUM(total) from(
+    SELECT COUNT( likes.user_id ) as total
+		FROM vk.profiles profiles, vk.likes likes
+		WHERE profiles.user_id = likes.user_id
+		GROUP BY profiles.birthday
+		ORDER BY profiles.birthday
+		DESC LIMIT 10) as likes_list
+
+-- --> 13 лайков
+-- для проверки
+-- SELECT COUNT( likes.user_id )
+-- FROM vk.profiles profiles, vk.likes likes
+-- WHERE profiles.user_id = likes.user_id
+-- GROUP BY profiles.birthday
+-- ORDER BY profiles.birthday
+-- DESC LIMIT 10;
+
+-- >2
+-- 2
+-- 2
+-- 1
+-- 1
+-- 1
+-- 1
+-- 1
+-- 1
+-- 1
+
+-- 4.Определить кто больше поставил лайков (всего) - мужчины или женщины?
+
+    select MAX(s), MAX(g) from (
+    SELECT COUNT(gender) as s, gender as g
+	FROM vk.profiles profiles, vk.likes likes
+	WHERE profiles.user_id = likes.user_id
+	GROUP BY profiles.gender) as a
+-- вывод:
+-- >237	m
+-- для проверки:
+-- 232	f
+-- 237	m

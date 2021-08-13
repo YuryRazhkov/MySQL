@@ -3,13 +3,22 @@
 Из всех друзей этого пользователя найдите человека, который больше всех
 общался с нашим пользователем.*/
 
-select from_user_id, count(*)
-from messages, friend_requests
-where to_user_id = 1071 and target_user_id = 1071
-group by from_user_id order by 1 limit 1;
+-- считает верно. перепроверил руками.
 
-select count (msg_list) from
-(select * from messages where from_user_id=1071 or to_user_id= 1071) as msg_list;
+select count(*), from_user_id from (
+  (SELECT from_user_id FROM messages where to_user_id = 1071
+  UNION ALL
+  SELECT to_user_id FROM messages where from_user_id = 1071) as b,
+
+  (select initiator_user_id from friend_requests where target_user_id = 1071
+  UNION ALL
+  select target_user_id from friend_requests where initiator_user_id = 1071) as a)
+where from_user_id = initiator_user_id
+group by from_user_id
+order by 1 desc
+limit 1;
+
+
 
 -- 3. Подсчитать общее количество лайков, которые получили 10 самых
 -- молодых пользователей.

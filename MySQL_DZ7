@@ -1,0 +1,11 @@
+-- Тема №7 Тема “Сложные запросы”
+
+-- 1. Составьте список пользователей users, которые осуществили хотя бы один заказ orders в интернет магазине.
+
+use shop;
+select orders.user_id, users.id, users.name
+from orders, users
+where orders.user_id=users.id
+
+
+-- 2

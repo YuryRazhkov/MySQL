@@ -63,3 +63,30 @@ Select SUM(total) from(
 -- для проверки:
 -- 232	f
 -- 237	m
+
+-- 5. Найти 10 пользователей, которые проявляют наименьшую
+-- активность в использовании социальной сети.
+
+
+select * from (
+select count(id) as act, id from(
+select id from (-- найдем тех кто не оставилял лайки
+	select count(id) as c, id from (
+    select users.id from users
+    union all
+    select likes.user_id from likes) as wq
+    group by id) as sel_lks
+    where c = 1 -- так получили id юзеров которые появляются в селекте 1 раз, а значит они не былы в таблицe лайков
+             union all
+select id from (-- найдем тех кто не писал сообшения
+	select count(id) as m, id from (
+    select users.id from users
+    union all
+    select messages.from_user_id from messages) as qw
+    group by id) as sel_msg
+    where m = 1 -- так получили id юзеров которые появляются в селекте 1 раз, а значит они не былы в таблицe сообщений
+    )
+    as total
+    group by id
+    order by act desc) as activity
+    where act = 2; -- получили пользователей, которые не лайкали и не писали сообщения
